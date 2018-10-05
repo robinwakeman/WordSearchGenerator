@@ -1,0 +1,17 @@
+Word Search Algorithm
+
+- place words in grid
+	- get words array
+	- divide it 40% across, 40 vertical, 20 diagonal
+	- 3 different arrays? or randomly assigned at placement?
+		- make sure words that will only fit diagonal are diagonal, etc.
+		- place these restrictive words first
+	- for the remaining words:
+		- randomly generate spot in array 
+		- check if row/column around it is available
+			- empty or characters match
+		- if yes, place word
+		- if no, repeat
+- fill gaps with random characters
+	- iterate through array
+		- if index contains null, place randomly generated char

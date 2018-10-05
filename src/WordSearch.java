@@ -1,17 +1,28 @@
 
+import java.util.Scanner;
+
 public class WordSearch {
+	private String title;
 	private Grid grid;
 	private String[] dictionary;
+	private String[] wordList;
+	private Scanner scan;
 	
-	public void setGrid(String title, int x, int y) {
-		grid = new Grid(title, x, y);
-		grid.fillGrid();
+	public void makeGrid(int x, int y) {
+		grid = new Grid(x, y);
+		String [] tempList = {"one", "two", "three", "four"};
+		grid.placeWords(tempList);
+		//grid.fillGrid();
 	}
 	
-	public void print() {
-		grid.printTitle();
-		grid.printWordList();
+	public void print() { // TODO format output
+		System.out.println(title);
 		grid.printGrid();
+		// TODO print word list
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public static void main(String[] args) {
@@ -19,12 +30,13 @@ public class WordSearch {
 		WordSearch WS = new WordSearch();
 		
 //		System.out.print("What is the title? ");
+		WS.setTitle("Word Search");
 //		
 //		System.out.print("How many columns? ");
 //		
 //		System.out.print("How many rows? ");
 //		
-		WS.setGrid("Word Search Title", 10, 8);
+		WS.makeGrid(10, 8);
 //				
 //		System.out.print("Would you like to choose a custom set of words? (y/n) ");
 //		
