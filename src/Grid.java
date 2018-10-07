@@ -13,9 +13,11 @@ public class Grid {
 	}
 	
 	public void placeWords(String[] wordList) {
-		String[] temp1 = {"cat", "dog", "cow"};
+		String[] temp1 = {"cat", "dog", "cow", "chicken"};
+		//String[] temp1 = {"abc"};
 		placeHorizontal(temp1);
 		placeVertical(temp1);
+		//fillGrid();
 	}
 
 	// TODO: handle case where a spot can't be found for the word, maybe after x tries
@@ -26,10 +28,12 @@ public class Grid {
 			 // length of the word should be < spot to the end 
 			boolean placeAvailable;
 			do {
-				int x0 = random.nextInt(lastIndexAcross - word.length() + 2); // 1 or 2?
-				 int y0 = random.nextInt(lastIndexDown);
+				int x0 = random.nextInt(lastIndexAcross - word.length() + 2); // why 2?
+				 int y0 = random.nextInt(lastIndexDown + 1); // +1 since nextInt(n) is 0-n exclusive
+				 
+				 //TODO word never appears in the last  row/column
 				
-				 placeAvailable = spaceIsFree('h', x0, y0, word.length());
+				 placeAvailable = spaceIsFree('h', x0, y0, word);
 				 //check if placement spot and row are available
 				 if (placeAvailable) {				 
 					 //place word
@@ -48,10 +52,10 @@ public class Grid {
 			 // length of the word should be < spot to the end 
 			boolean placeAvailable;
 			do {
-				int x0 = random.nextInt(lastIndexAcross);
+				int x0 = random.nextInt(lastIndexAcross + 1); //+1 since nextInt(n) is 0-n exclusive
 				 int y0 = random.nextInt(lastIndexDown - word.length() + 2); // 1 or 2?
 				
-				 placeAvailable = spaceIsFree('v', x0, y0, word.length());
+				 placeAvailable = spaceIsFree('v', x0, y0, word);
 				 //check if placement spot and row are available
 				 if (placeAvailable) {				 
 					 //place word
@@ -68,17 +72,19 @@ public class Grid {
 		return false;
 	}
 	
-	//TODO: handle case where identical characters can overlap
-	private boolean spaceIsFree(char direction, int x0, int y0, int wordLength) {
+	//TODO: NEXT: add ability to check if a spot/node has been checked already
+	private boolean spaceIsFree(char direction, int x0, int y0, String word) {
 		switch (direction) {
 			case 'h':
-				for(int x=x0; x<=wordLength; x++) {
-					if (grid[y0][x] != 0) return false;
+				for(int x=0; x<word.length(); x++) {
+					if (grid[y0][x0+x] != 0) 
+						if(grid[y0][x0+x] != word.charAt(x)) return false;
 				}
 				return true;
 			case 'v': 
-				for(int y=y0; y<=wordLength; y++) { // why does <= work instead of<????
-					if (grid[y][x0] != 0) return false; 
+				for(int y=0; y<word.length(); y++) { 
+					if (grid[y0+y][x0] != 0)
+						if(grid[y0+y][x0] != word.charAt(y)) return false; 
 				}
 				return true;
 			case 'd':

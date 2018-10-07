@@ -36,7 +36,7 @@ public class WordSearch {
 //		
 //		System.out.print("How many rows? ");
 //		
-		WS.makeGrid(10, 8);
+		WS.makeGrid(8, 8);
 //				
 //		System.out.print("Would you like to choose a custom set of words? (y/n) ");
 //		
